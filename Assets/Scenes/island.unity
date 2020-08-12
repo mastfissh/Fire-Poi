@@ -516,9 +516,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destination: {fileID: 152673249}
   lineHolder: {fileID: 2133048994}
-  drag: 0.05
+  drag: 0.1
   mass: 0.05
-  angular_drag: 0.5
+  angular_drag: 0.1
   width: 0.05
   jointCount: 7
 --- !u!1 &804934436
@@ -10026,7 +10026,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destination: {fileID: 1213521060}
   lineHolder: {fileID: 1146239989}
-  drag: 0.05
+  drag: 0.1
   mass: 0.05
   angular_drag: 0.1
   width: 0.05
