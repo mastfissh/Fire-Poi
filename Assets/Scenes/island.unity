@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 152673251}
   - component: {fileID: 152673250}
   - component: {fileID: 152673255}
+  - component: {fileID: 152673254}
   m_Layer: 0
   m_Name: Ltarget
   m_TagString: Untagged
@@ -303,6 +304,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &152673254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152673249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c12f7d7bec68646927f36092f897d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DragCoefficient: 0.04
 --- !u!54 &152673255
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -312,8 +326,8 @@ Rigidbody:
   m_GameObject: {fileID: 152673249}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.1
-  m_AngularDrag: 0.1
+  m_Drag: 0
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -559,11 +573,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destination: {fileID: 152673249}
   lineHolder: {fileID: 2133048994}
-  drag: 0.5
-  mass: 0.05
+  drag: 6
+  mass: 0.2
   angular_drag: 0.1
   width: 0.05
-  jointCount: 6
+  jointCount: 8
 --- !u!1 &804934436
 GameObject:
   m_ObjectHideFlags: 0
@@ -10069,11 +10083,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destination: {fileID: 1213521060}
   lineHolder: {fileID: 1146239989}
-  drag: 0.5
-  mass: 0.05
+  drag: 6
+  mass: 0.2
   angular_drag: 0.1
   width: 0.05
-  jointCount: 6
+  jointCount: 8
 --- !u!54 &1017293188
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10405,6 +10419,7 @@ GameObject:
   - component: {fileID: 1213521063}
   - component: {fileID: 1213521062}
   - component: {fileID: 1213521061}
+  - component: {fileID: 1213521066}
   m_Layer: 0
   m_Name: Rtarget
   m_TagString: Untagged
@@ -10421,8 +10436,8 @@ Rigidbody:
   m_GameObject: {fileID: 1213521060}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.1
-  m_AngularDrag: 0.1
+  m_Drag: 0
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -10505,6 +10520,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1213521066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213521060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c12f7d7bec68646927f36092f897d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DragCoefficient: 0.04
 --- !u!1 &1312181339
 GameObject:
   m_ObjectHideFlags: 0
