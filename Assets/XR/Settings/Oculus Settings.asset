@@ -17,6 +17,6 @@ MonoBehaviour:
   SharedDepthBuffer: 0
   DashSupport: 0
   V2Signing: 1
-  LowOverheadMode: 0
+  LowOverheadMode: 1
   ProtectedContext: 0
-  FocusAware: 1
+  FocusAware: 0

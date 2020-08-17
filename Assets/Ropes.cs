@@ -113,6 +113,10 @@ public class Ropes : MonoBehaviour
 		joint.yMotion = ConfigurableJointMotion.Locked;
 		joint.zMotion = ConfigurableJointMotion.Locked;
 		joint.angularYMotion = ConfigurableJointMotion.Locked;
+		var spring = new SoftJointLimitSpring();
+		spring.spring = 8000;
+		spring.damper = 8000;
+		joint.linearLimitSpring = spring;
 		return joint;
 	}
 	
