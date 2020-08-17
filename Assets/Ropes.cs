@@ -78,6 +78,7 @@ public class Ropes : MonoBehaviour
 	void Join(GameObject src, GameObject dest)
 	{
 		var joint = buildJoint(src);
+		Physics.IgnoreCollision(src.GetComponent<Collider>(), dest.GetComponent<Collider>());
 		joint.connectedBody = dest.GetComponent<Rigidbody>();
 	}
 
