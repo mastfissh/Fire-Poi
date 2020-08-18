@@ -17,9 +17,6 @@ public class Ropes : MonoBehaviour
 	public float width = 0.05f;
 	public int jointCount = 5;
 
-	private float maxSpeed = 10000f;
-	private float maxSpeedSqr;
-
 	private GameObject source;
 	private int segmentCount;
 	private ConfigurableJoint baseJoint;
@@ -42,7 +39,6 @@ public class Ropes : MonoBehaviour
 		ropeAngDrag = angular_drag / jointCount;
 		line.positionCount = segmentCount;
 		source = this.gameObject;
-		maxSpeedSqr = maxSpeed * maxSpeed;
         BuildRope();
     }
 
@@ -57,9 +53,6 @@ public class Ropes : MonoBehaviour
 	    {
     		positions[idx] = jointHolder.transform.position;
     		idx++;
-    		if(jointHolder.GetComponent<Rigidbody>().velocity.sqrMagnitude > maxSpeedSqr){
-	            jointHolder.GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody>().velocity, maxSpeed);
-	        }
 	    }
     	positions[idx] = destination.transform.position;
 		line.SetPositions(positions);
