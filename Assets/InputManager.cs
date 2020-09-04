@@ -13,6 +13,9 @@ public class InputManager : MonoBehaviour
     private Transform Ltrans;
     private Transform Rtrans;
     private Vector3 shadowScale;
+
+    private GameObject Leye;
+    private GameObject Reye;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,18 +25,24 @@ public class InputManager : MonoBehaviour
         Ltrans = Ltarget.GetComponent<Transform>();
         Rtrans = Rtarget.GetComponent<Transform>();
         shadowScale = Ltrans.localScale;
+        Leye = GameObject.Find("Leye");
+        Reye = GameObject.Find("Reye");
+        Leye.SetActive(false);
+        Reye.SetActive(false);
     }	
 
     // Update is called once per frame
     void Update()
     {
         var baseColorScale = new Vector4(1, 1, 1, 1);
-        var alteredColorScale = new Vector4(1.1f, 0.9f, 0.9f, 1);
+        var alteredColorScale = new Vector4(0.7f, 0.9f, 0.9f, 1);
         var index_triggers = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch) + 
     		OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.RTouch);
         if (index_triggers > 0.5f){
             Time.timeScale = 1.0f;
             Unity.XR.Oculus.Utils.SetColorScaleAndOffset(baseColorScale, baseColorScale);
+            Leye.SetActive(false);
+            Reye.SetActive(false);
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
         }
 
@@ -43,6 +52,8 @@ public class InputManager : MonoBehaviour
         if (hand_triggers > 0.5f){
             Time.timeScale = 0.5f;
             Unity.XR.Oculus.Utils.SetColorScaleAndOffset(alteredColorScale, baseColorScale);
+            Leye.SetActive(true);
+            Reye.SetActive(true);
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
         }
         var thumbsticks = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick) +
