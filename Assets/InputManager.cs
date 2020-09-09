@@ -62,7 +62,7 @@ public class InputManager : MonoBehaviour
         var vertical = thumbsticks[1];
         if (Math.Abs(vertical) > 0.2f)
         {
-            var maxVec = new Vector3(1, 1, 1) * 0.2f;
+            var maxGeoSize = new Vector3(1, 1, 1) * 0.4f;
             float factor = (float)(1 + (vertical * 0.03));
             float geoFactor = (float)(1 + (vertical * 0.004));
             Lrigid.mass = Math.Min(Lrigid.mass * factor, 40);
@@ -72,8 +72,8 @@ public class InputManager : MonoBehaviour
             Lrigid.angularDrag = Math.Min(Lrigid.angularDrag * factor, 1);
             Rrigid.angularDrag = Math.Min(Rrigid.angularDrag * factor, 1);
             shadowScale = shadowScale * geoFactor;
-            Ltrans.localScale = Vector3.Min(shadowScale, maxVec);
-            Rtrans.localScale = Vector3.Min(shadowScale, maxVec);
+            Ltrans.localScale = Vector3.Min(shadowScale, maxGeoSize);
+            Rtrans.localScale = Vector3.Min(shadowScale, maxGeoSize);
         }
     }
 }
