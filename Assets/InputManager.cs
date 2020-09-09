@@ -63,17 +63,31 @@ public class InputManager : MonoBehaviour
         if (Math.Abs(vertical) > 0.2f)
         {
             var maxGeoSize = new Vector3(1, 1, 1) * 0.4f;
+            var minGeoSize = new Vector3(1, 1, 1) * 0.05f;
+            var maxMass = 40f;
+            var minMass = 0.1f;
+            var maxDrag = 1f;
+            var minDrag = 0.001f;
             float factor = (float)(1 + (vertical * 0.03));
             float geoFactor = (float)(1 + (vertical * 0.004));
-            Lrigid.mass = Math.Min(Lrigid.mass * factor, 40);
-            Rrigid.mass = Math.Min(Rrigid.mass * factor, 40);
-            Lrigid.drag = Math.Min(Lrigid.drag * factor, 1);
-            Rrigid.drag = Math.Min(Rrigid.drag * factor, 1);
-            Lrigid.angularDrag = Math.Min(Lrigid.angularDrag * factor, 1);
-            Rrigid.angularDrag = Math.Min(Rrigid.angularDrag * factor, 1);
+            Lrigid.mass = Clamp(Lrigid.mass * factor, minMass, maxMass);
+            Rrigid.mass = Clamp(Rrigid.mass * factor, minMass, maxMass);
+            Lrigid.drag = Clamp(Lrigid.drag * factor, minDrag, maxDrag);
+            Rrigid.drag = Clamp(Rrigid.drag * factor, minDrag, maxDrag);
+            Lrigid.angularDrag = Clamp(Lrigid.angularDrag * factor, minDrag, maxDrag);
+            Rrigid.angularDrag = Clamp(Rrigid.angularDrag * factor, minDrag, maxDrag);
             shadowScale = shadowScale * geoFactor;
-            Ltrans.localScale = Vector3.Min(shadowScale, maxGeoSize);
-            Rtrans.localScale = Vector3.Min(shadowScale, maxGeoSize);
+            Ltrans.localScale = Clamp(shadowScale,  minGeoSize, maxGeoSize);
+            Rtrans.localScale = Clamp(shadowScale, minGeoSize, maxGeoSize);
         }
+    }
+
+    private float Clamp(float inp, float min, float max)
+    {
+        return Math.Max(Math.Min(inp, max), min);
+    }
+    private Vector3 Clamp(Vector3 inp, Vector3 min, Vector3 max)
+    {
+        return Vector3.Max(Vector3.Min(inp, max), min);
     }
 }
