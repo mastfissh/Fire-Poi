@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Clamper : MonoBehaviour
 {
-	private float maxSpeed = 1000f;
+	private float maxSpeed = 400f;
 	private float maxSpeedSqr;
     // Start is called before the first frame update
     void Start()

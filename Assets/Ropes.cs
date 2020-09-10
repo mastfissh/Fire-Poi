@@ -112,6 +112,7 @@ public class Ropes : MonoBehaviour
 		rigid.solverIterations = 12;
 		col.radius = width;
 		col.height = size;
+		item.AddComponent<Clamper>();
 		return item;
 	}
 
@@ -122,11 +123,11 @@ public class Ropes : MonoBehaviour
 		joint.yMotion = ConfigurableJointMotion.Locked;
 		joint.zMotion = ConfigurableJointMotion.Locked;
 		joint.angularYMotion = ConfigurableJointMotion.Locked;
-		/*var spring = new SoftJointLimitSpring();
-		spring.spring = 40000;
-		spring.damper = 8000;
-		joint.linearLimitSpring = spring;*/
-		return joint;
+        var spring = new SoftJointLimitSpring();
+        spring.spring = 40000;
+        spring.damper = 8000;
+        joint.linearLimitSpring = spring;
+        return joint;
 	}
 	
 }

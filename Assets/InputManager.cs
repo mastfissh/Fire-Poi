@@ -68,7 +68,7 @@ public class InputManager : MonoBehaviour
         {
             var maxGeoSize = new Vector3(1, 1, 1) * 0.4f;
             var minGeoSize = new Vector3(1, 1, 1) * 0.05f;
-            var maxMass = 40f;
+            var maxMass = 20f;
             var minMass = 1f;
             var maxDrag = 1f;
             var minDrag = 0.1f;
