@@ -24,8 +24,6 @@ public class InputManager : MonoBehaviour
         this.fixedDeltaTime = Time.fixedDeltaTime;
         Lrigid = Ltarget.GetComponent<Rigidbody>();
         Rrigid = Rtarget.GetComponent<Rigidbody>();
-        Lcol = Ltarget.GetComponent<SphereCollider>();
-        Rcol = Rtarget.GetComponent<SphereCollider>();
         Ltrans = Ltarget.GetComponent<Transform>();
         Rtrans = Rtarget.GetComponent<Transform>();
         shadowScale = Ltrans.localScale;
@@ -33,16 +31,17 @@ public class InputManager : MonoBehaviour
         Reye = GameObject.Find("Reye");
         Leye.SetActive(false);
         Reye.SetActive(false);
-    }	
+    }
 
     // Update is called once per frame
     void Update()
     {
         var baseColorScale = new Vector4(1, 1, 1, 1);
         var alteredColorScale = new Vector4(0.7f, 0.9f, 0.9f, 1);
-        var index_triggers = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch) + 
-    		OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.RTouch);
-        if (index_triggers > 0.5f){
+        var index_triggers = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch) +
+            OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.RTouch);
+        if (index_triggers > 0.5f)
+        {
             Time.timeScale = 1.0f;
             Unity.XR.Oculus.Utils.SetColorScaleAndOffset(baseColorScale, baseColorScale);
             Leye.SetActive(false);
@@ -50,10 +49,11 @@ public class InputManager : MonoBehaviour
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
         }
 
-        var hand_triggers = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) + 
-    		OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch);
+        var hand_triggers = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) +
+            OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch);
 
-        if (hand_triggers > 0.5f){
+        if (hand_triggers > 0.5f)
+        {
             Time.timeScale = 0.5f;
             Unity.XR.Oculus.Utils.SetColorScaleAndOffset(alteredColorScale, baseColorScale);
             Leye.SetActive(true);
@@ -81,19 +81,17 @@ public class InputManager : MonoBehaviour
             Lrigid.angularDrag = Clamp(Lrigid.angularDrag * factor, minDrag, maxDrag);
             Rrigid.angularDrag = Clamp(Rrigid.angularDrag * factor, minDrag, maxDrag);
             shadowScale = shadowScale * geoFactor;
-            var geoScale = Clamp(shadowScale, minGeoSize, maxGeoSize);
+            Vector3 geoScale = ClampV(shadowScale, minGeoSize, maxGeoSize);
             Ltrans.localScale = geoScale;
             Rtrans.localScale = geoScale;
-            Lcol.radius = geoScale.x * 2;
-            Rcol.radius = geoScale.x * 2;
         }
     }
 
-    private float Clamp(float inp, float min, float max)
+    float Clamp(float inp, float min, float max)
     {
         return Math.Max(Math.Min(inp, max), min);
     }
-    private Vector3 Clamp(Vector3 inp, Vector3 min, Vector3 max)
+    Vector3 ClampV(Vector3 inp, Vector3 min, Vector3 max)
     {
         return Vector3.Max(Vector3.Min(inp, max), min);
     }

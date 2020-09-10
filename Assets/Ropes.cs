@@ -67,18 +67,26 @@ public class Ropes : MonoBehaviour
 		{
 			Vector3 jointPosition = (delta*(idx+1)) + transform.position;
 			var jointHolder = buildJointHolder(idx, size);
+			Physics.IgnoreCollision(jointHolder.GetComponent<Collider>(), destination.GetComponent<Collider>());
 			jointHolders[idx] = jointHolder;
 			jointHolder.transform.position = jointPosition;
 			Join(last, jointHolder);
 			last = jointHolder;
 		}
+		foreach (GameObject jointHolder in jointHolders)
+		{
+			foreach (GameObject jointHolder2 in jointHolders)
+			{
+				Physics.IgnoreCollision(jointHolder.GetComponent<Collider>(), jointHolder2.GetComponent<Collider>());
+			}
+		}
 		Join(last, destination);	
+
 	}
 
 	void Join(GameObject src, GameObject dest)
 	{
 		var joint = buildJoint(src);
-		Physics.IgnoreCollision(src.GetComponent<Collider>(), dest.GetComponent<Collider>());
 		joint.connectedBody = dest.GetComponent<Rigidbody>();
 	}
 
@@ -114,10 +122,10 @@ public class Ropes : MonoBehaviour
 		joint.yMotion = ConfigurableJointMotion.Locked;
 		joint.zMotion = ConfigurableJointMotion.Locked;
 		joint.angularYMotion = ConfigurableJointMotion.Locked;
-		var spring = new SoftJointLimitSpring();
-		spring.spring = 8000;
+		/*var spring = new SoftJointLimitSpring();
+		spring.spring = 40000;
 		spring.damper = 8000;
-		joint.linearLimitSpring = spring;
+		joint.linearLimitSpring = spring;*/
 		return joint;
 	}
 	
