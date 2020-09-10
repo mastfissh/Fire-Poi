@@ -12,6 +12,8 @@ public class InputManager : MonoBehaviour
     private Rigidbody Rrigid;
     private Transform Ltrans;
     private Transform Rtrans;
+    private SphereCollider Lcol;
+    private SphereCollider Rcol;
     private Vector3 shadowScale;
 
     private GameObject Leye;
@@ -22,6 +24,8 @@ public class InputManager : MonoBehaviour
         this.fixedDeltaTime = Time.fixedDeltaTime;
         Lrigid = Ltarget.GetComponent<Rigidbody>();
         Rrigid = Rtarget.GetComponent<Rigidbody>();
+        Lcol = Ltarget.GetComponent<SphereCollider>();
+        Rcol = Rtarget.GetComponent<SphereCollider>();
         Ltrans = Ltarget.GetComponent<Transform>();
         Rtrans = Rtarget.GetComponent<Transform>();
         shadowScale = Ltrans.localScale;
@@ -65,9 +69,9 @@ public class InputManager : MonoBehaviour
             var maxGeoSize = new Vector3(1, 1, 1) * 0.4f;
             var minGeoSize = new Vector3(1, 1, 1) * 0.05f;
             var maxMass = 40f;
-            var minMass = 0.1f;
+            var minMass = 1f;
             var maxDrag = 1f;
-            var minDrag = 0.001f;
+            var minDrag = 0.1f;
             float factor = (float)(1 + (vertical * 0.03));
             float geoFactor = (float)(1 + (vertical * 0.004));
             Lrigid.mass = Clamp(Lrigid.mass * factor, minMass, maxMass);
@@ -77,8 +81,11 @@ public class InputManager : MonoBehaviour
             Lrigid.angularDrag = Clamp(Lrigid.angularDrag * factor, minDrag, maxDrag);
             Rrigid.angularDrag = Clamp(Rrigid.angularDrag * factor, minDrag, maxDrag);
             shadowScale = shadowScale * geoFactor;
-            Ltrans.localScale = Clamp(shadowScale,  minGeoSize, maxGeoSize);
-            Rtrans.localScale = Clamp(shadowScale, minGeoSize, maxGeoSize);
+            var geoScale = Clamp(shadowScale, minGeoSize, maxGeoSize);
+            Ltrans.localScale = geoScale;
+            Rtrans.localScale = geoScale;
+            Lcol.radius = geoScale.x * 2;
+            Rcol.radius = geoScale.x * 2;
         }
     }
 

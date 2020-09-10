@@ -11,8 +11,9 @@ public class Whoosh : MonoBehaviour
     private float last_accel;
     private Rigidbody body;
     private AudioLowPassFilter filt;
-    private float minPass = 1000f;
-    private float maxPass = 9000f;
+    private AudioSource src;
+    private float minPass = 1500f;
+    private float maxPass = 8000f;
     private int maxVel = 100;
 
     System.Random rand = new System.Random();
@@ -31,6 +32,7 @@ public class Whoosh : MonoBehaviour
         last_accel = 0.0f;
         body = this.gameObject.GetComponentInParent<Rigidbody>();
         filt = this.gameObject.GetComponent<AudioLowPassFilter>();
+        src = this.gameObject.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -43,8 +45,15 @@ public class Whoosh : MonoBehaviour
         diff += last_accel * 8;
         diff += Math.Min(last_velocity, maxVel) * 14;
         diff = Math.Min(diff, maxPass);
-        filt.cutoffFrequency = (diff * 5 + filt.cutoffFrequency)/6;
+        filt.cutoffFrequency = (diff + filt.cutoffFrequency * 5) /6;
+        var minVol = 0.04f;
+        var maxVol = 0.16f;
+        var vol = minVol + accel / 50;
+        src.volume = (Clamp(vol, minVol, maxVol) + src.volume * 9) / 10;
     }
-
+    private float Clamp(float inp, float min, float max)
+    {
+        return Math.Max(Math.Min(inp, max), min);
+    }
 
 }
